@@ -8,19 +8,19 @@ class TodoLeftMenu extends React.Component {
 				{
 					className: 'menu-toggle__item menu_toggle__item--current',
 					active: true,
-					name: 'Добавить',
+					name: 'Add',
 					link: '#'
 				},
 				{
 					className: 'menu-toggle__item',
 					active: false,
-					name: 'Завершённые',
+					name: 'Completed',
 					link: '#'
 				},
 				{
 					className: 'menu-toggle__item',
 					active: false,
-					name: 'Активные',
+					name: 'Active',
 					link: '#'
 				}
 			]
@@ -47,9 +47,9 @@ class TodoLeftMenu extends React.Component {
 		
 		items.map(item => {
 			if (item.name === name)
-				item.className = 'menu-toggle__item menu_toggle__item--current';
+				 return (item.className = 'menu-toggle__item menu_toggle__item--current');
 			else
-				item.className = 'menu-toggle__item';
+				return (item.className = 'menu-toggle__item');
 		});
 		
 		this.setState({ items: items });

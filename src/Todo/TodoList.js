@@ -1,20 +1,7 @@
-import React from 'react';
+import React    from 'react';
+import TodoItem from './TodoItem';
 
 class TodoList extends React.Component {
-	render () {
-		return (
-			<ul className="notice-card-list">
-				{this.props.items.map(item => (
-					<li key={item.id}>
-						{item.text}
-					</li>
-				))}
-			</ul>
-		);
-	}
-}
-
-class TodoApp extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = { items: [], text: '' };
@@ -36,28 +23,37 @@ class TodoApp extends React.Component {
 	render () {
 		return (
 			<div className="landing-notice-card">
-				<h3>Список дел</h3>
-				<TodoList items={this.state.items}/>
+				<h3>Task list</h3>
+				<ul className="notice-card-list">
+					{this.state.items.map((item, index) => {
+						return (
+							<TodoItem
+								item={item}
+								key={index}
+							/>
+						);
+					})}
+				</ul>
 				<form
 					className="create__task-form form-create"
 					onSubmit={this.handleSubmit}>
-					<label htmlFor="new-todo">
-						Что нужно сделать?
-					</label>
+					<label htmlFor="new-todo">Add a task with title?</label>
 					<input
 						id="new-todo"
-						className="input textarea"
+						className="input"
 						onChange={this.handleChange}
 						value={this.state.text}
 					/>
-					<button className="button red-button">
-						Добавить #{this.state.items.length + 1}
-					</button>
-					<button
-						className="button red-button"
-						onClick={this.handleClear.bind(this)}>
-						Очистить историю
-					</button>
+					<div className="create__task-form--bottom">
+						<button className="button red-button">
+							Add #{this.state.items.length + 1}
+						</button>
+						<button
+							className="button red-button"
+							onClick={this.handleClear.bind(this)}>
+							Clear LocalStorage
+						</button>
+					</div>
 				</form>
 			</div>
 		);
@@ -81,7 +77,7 @@ class TodoApp extends React.Component {
 		const newItem = {
 			text: this.state.text,
 			id: Date.now(),
-			disabled: false
+			completed: false
 		};
 		this.setState(state => ({
 			items: state.items.concat(newItem),
@@ -90,4 +86,4 @@ class TodoApp extends React.Component {
 	}
 }
 
-export default TodoApp;
+export default TodoList;
