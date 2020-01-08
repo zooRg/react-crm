@@ -1,9 +1,10 @@
 import React     from 'react';
 import PropTypes from 'prop-types';
 
-function TodoForm ({ length, text, onChange, onClear, onSubmit }) {
+function TodoForm ({ length, text, isShow, onChange, onClear, onSubmit }) {
 	return (
 		<form
+			style={isShow ? {} : {display: 'none'}}
 			className="create__task-form form-create"
 			onSubmit={onSubmit}>
 			<label htmlFor="new-todo">Add a task with title?</label>
@@ -30,6 +31,7 @@ function TodoForm ({ length, text, onChange, onClear, onSubmit }) {
 TodoForm.propTypes = {
 	length: PropTypes.number,
 	text: PropTypes.string,
+	isShow: PropTypes.bool,
 	onChange: PropTypes.func.isRequired,
 	onClear: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired

@@ -32,7 +32,7 @@ function TodoItem ({ item, index, onEdit, updateValue, onCompleted, onDelete }) 
 	function renderDefaultView () {
 		return (<span>{index + 1}&nbsp;-&nbsp;{item.text}</span>);
 	}
-	
+
 	return (
 		<li className={classes.join(' ')}>
 			{(item.isInEditMode && !buttonDisabled)
@@ -58,8 +58,8 @@ function TodoItem ({ item, index, onEdit, updateValue, onCompleted, onDelete }) 
 }
 
 TodoItem.propTypes = {
-	index: PropTypes.number,
-	item: PropTypes.object,
+	index: PropTypes.number.isRequired,
+	item: PropTypes.object.isRequired,
 	onEdit: PropTypes.func.isRequired,
 	onCompleted: PropTypes.func.isRequired,
 	onDelete: PropTypes.func.isRequired,

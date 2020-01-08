@@ -1,59 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class TodoLeftMenu extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			items: [
-				{
-					className: 'menu-toggle__item menu_toggle__item--current',
-					active: true,
-					name: 'Add',
-					link: '#'
-				},
-				{
-					className: 'menu-toggle__item',
-					active: false,
-					name: 'Completed',
-					link: '#'
-				},
-				{
-					className: 'menu-toggle__item',
-					active: false,
-					name: 'Active',
-					link: '#'
-				}
-			]
-		};
+function MenuItem ({ item, onClick }) {
+	const classes = ['menu-toggle__item'];
+	if (item.active) {
+		classes.push('menu_toggle__item--current');
 	}
+	return (
+		<li
+			className={classes.join(' ')}
+			key={item.name}
+			onClick={() => onClick(item.name)}>
+			{item.name}
+		</li>
+	);
+}
+
+function TodoLeftMenu ({ onShow }) {
+	const [menuItems, setMenuItem] = useState({
+		items: [
+			{
+				active: true,
+				name: 'Add',
+				link: '#',
+				sort: 'all'
+			},
+			{
+				active: false,
+				name: 'Completed',
+				link: '#',
+				sort: 'complete'
+			},
+			{
+				active: false,
+				name: 'Active',
+				link: '#',
+				sort: 'active'
+			}
+		]
+	});
 	
-	render () {
-		return (
-			<ul className="menu-toggle__list">
-				{this.state.items.map(item => (
-					<li
-						className={item.className}
-						key={item.name}
-						onClick={this.handleClick.bind(this, item.name)}>
-						{item.name}
-					</li>
-				))}
-			</ul>
-		);
-	}
-	
-	handleClick (name) {
-		const items = this.state.items.concat();
+	function handleClick (name, sort) {
+		const items = menuItems.items.concat();
 		
 		items.map(item => {
-			if (item.name === name)
-				return (item.className = 'menu-toggle__item menu_toggle__item--current');
-			else
-				return (item.className = 'menu-toggle__item');
+			item.active = false;
+			if (item.name === name) {
+				item.active = !item.active;
+			}
+			return item;
 		});
 		
-		this.setState({ items: items });
+		onShow(sort);
+		setMenuItem({ items });
 	}
+	
+	return (
+		<ul className="menu-toggle__list">
+			{menuItems.items.map(item => (
+				<MenuItem
+					item={item}
+					onClick={() => handleClick(item.name, item.sort)}
+					key={item.name}/>
+			))}
+		</ul>
+	);
 }
 
 export default TodoLeftMenu;
