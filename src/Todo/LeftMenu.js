@@ -47,7 +47,7 @@ class TodoLeftMenu extends React.Component {
 		
 		items.map(item => {
 			if (item.name === name)
-				 return (item.className = 'menu-toggle__item menu_toggle__item--current');
+				return (item.className = 'menu-toggle__item menu_toggle__item--current');
 			else
 				return (item.className = 'menu-toggle__item');
 		});
